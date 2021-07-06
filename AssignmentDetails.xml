@@ -1,0 +1,273 @@
+<!-- com.axians.itsolutions.ui5.neo.schedule.core.gantt#main#assignmentDetails#XML -->
+<core:FragmentDefinition xmlns="sap.m"
+						 xmlns:f="sap.ui.layout.form"
+						 xmlns:core="sap.ui.core"
+						 xmlns:l="sap.ui.layout"
+>
+	<Popover id="assignmentDetails" showHeader="false" class="sapUiContentPadding" placement="Auto"
+			 initialFocus="closeButton"
+			 contentWidth="40rem">
+		<content>
+			<f:SimpleForm width="100%" editable="true" layout="ResponsiveGridLayout"
+						  title="{parts:[
+						  	{value:{fn:'formatAssignmentDetailsTitle', key:'doubleClickHandler'}},
+						  	{path:'to_DemandItem/HeadSourceNumber'},
+						  	{path:'to_DemandItem/SourceNumber'},
+						  	{path:'to_DemandItem/Description'}
+						  ], formatter:'.formatByBackend'}"
+						  columnsXL="1"
+						  columnsL="1"
+						  columnsM="1"
+						  adjustLabelSpan="false"
+						  singleContainerFullSize="false">
+				<f:content>
+					<!-- Travel To -->
+					<Label text="{/#AssignmentSetType/BeginTravelTo/@sap:label}"
+						   visible="{= ${TravelFieldControl} > 0 ? true: false}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'BeginTravelTo',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'}
+							}"
+									minutesStep="15" maxDate="{EndTravelTo}"
+									enabled="{= ${TravelFieldControl} === 3 ? true: false}"
+									visible="{= ${TravelFieldControl} > 0 ? true: false}"
+					>
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+					<Label text="{/#AssignmentSetType/EndTravelTo/@sap:label}"
+						   visible="{= ${TravelFieldControl} > 0 ? true: false}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'EndTravelTo',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'}
+							}" minutesStep="15" minDate="{BeginTravelTo}"
+									enabled="{= ${TravelFieldControl} === 3 ? true: false}"
+									visible="{= ${TravelFieldControl} > 0 ? true: false}"
+					>
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+
+					<!-- Travel From -->
+					<Label text="{/#AssignmentSetType/BeginTravelFr/@sap:label}"
+						   visible="{= ${TravelFieldControl} > 0 ? true: false}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'BeginTravelFr',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'}
+							}" minutesStep="15" maxDate="{EndTravelFr}"
+									enabled="{= ${TravelFieldControl} === 3 ? true: false}"
+									visible="{= ${TravelFieldControl} > 0 ? true: false}"
+					>
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+					<Label text="{/#AssignmentSetType/EndTravelFr/@sap:label}"
+						   visible="{= ${TravelFieldControl} > 0 ? true: false}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'EndTravelFr',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'}
+							}" minutesStep="15" minDate="{BeginTravelFr}"
+									enabled="{= ${TravelFieldControl} === 3 ? true: false}"
+									visible="{= ${TravelFieldControl} > 0 ? true: false}"
+					>
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+
+					<!-- Assignment Dates -->
+					<Label text="{/#AssignmentSetType/BeginAssignment/@sap:label}" required="true">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'BeginAssignment',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'},
+								constraints: {
+									nullable: false
+								}
+							}"
+									minutesStep="15"
+									fieldGroupIds="assigmentValidation"
+									maxDate="{EndAssignment}">
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+					<!-- Assignment End -->
+					<Label text="{/#AssignmentSetType/EndAssignment/@sap:label}" required="true">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<DateTimePicker value="{
+								path:'EndAssignment',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'},
+								constraints: {
+									nullable: false
+								}
+							}" minutesStep="15" minDate="{BeginAssignment}" fieldGroupIds="assigmentValidation">
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</DateTimePicker>
+
+					<Label text="{/#AssignmentSetType/IsFixedDateTime/@sap:label}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<CheckBox selected="{IsFixedDateTime}">
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</CheckBox>
+
+					<Label text="{/#AssignmentSetType/Description/@sap:label}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<TextArea maxLength="40" fieldGroupIds="assigmentValidation" value="{
+								path:'Description',
+								type:'sap.ui.model.odata.type.String',
+								constraints: {maxLength:40}
+							}">
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</TextArea>
+
+					<Label text="{/#DemandHeadSetType/Longtext/@sap:label}">
+						<layoutData>
+							<l:GridData span="XL4 L4 M4 S4" indent="XL0 L0 M0"/>
+						</layoutData>
+					</Label>
+					<FormattedText
+						htmlText="{= !!${to_DemandItem/to_DemandHead/Longtext} ? ${to_DemandItem/to_DemandHead/Longtext} : '-' }">
+						<layoutData>
+							<l:GridData span="XL8 L8 M8 S8" indent="XL0 L0 M0"/>
+						</layoutData>
+					</FormattedText>
+
+					<Label design="Bold" text="{i18n>avatar.details.skills}"
+						   visible="{= ${to_DemandItem/to_SkillAllocationHds}.length > 0}"/>
+					<VBox items="{path:'to_DemandItem/to_SkillAllocationHds', templateShareable:false}" wrap="Wrap"
+						  visible="{= ${to_DemandItem/to_SkillAllocationHds}.length > 0}">
+						<Panel expandable="true" expanded="true" expandAnimation="false"
+							   headerText="{Description} ({ResourceCount})" backgroundDesign="Transparent">
+							<content>
+								<VBox
+									items="{path:'to_SkillAllocationItms', templateShareable:false}">
+									<HBox>
+										<core:Icon src="{to_Skill/IconUrl}"
+												   tooltip="{to_Skill/TextDescription}"
+												   class="sapUiTinyMarginTop sapUiTinyMarginEnd"/>
+										<GenericTag text="{to_Skill/TextDescription}"
+													design="StatusIconHidden">
+											<ObjectNumber unit="{ScaleTextDescription}"/>
+										</GenericTag>
+									</HBox>
+								</VBox>
+							</content>
+						</Panel>
+					</VBox>
+				</f:content>
+			</f:SimpleForm>
+
+			<f:SimpleForm width="100%" editable="true" layout="ResponsiveGridLayout"
+						  labelSpanXL="4" labelSpanL="4"
+						  labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" columnsXL="1"
+						  title="{i18n>assignment.details.status}"
+						  columnsL="1" columnsM="1" singleContainerFullSize="false">
+				<Table items="{
+					path:'to_AllStatus',
+					sorter: {path:'SequenceNumber'},
+					parameters: {
+					    'expand' : 'to_Status',
+						operationMode: 'Client'
+					}
+				}">
+					<columns>
+						<Column/>
+						<Column/>					
+						<Column/>
+						<Column/>
+						<Column/>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<core:Icon src="{IconUrl}"/>
+							<Text text="{Status}"/>
+							<Text text="{to_Status/StatusDescription}"/>
+							<Text text="{
+								path:'AllocatedAt',
+								type: 'sap.ui.model.odata.type.DateTimeOffset',
+								formatOptions: {style:'short'}
+							}"/>
+							<CheckBox selected="{= !!${AllocatedAt}}"
+									  select=".handleBackendEvent({fn:'handleStatusSelectChange', key:'doubleClickHandler'}, $event)"/>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:SimpleForm>
+
+			<f:SimpleForm width="100%" editable="false" layout="ResponsiveGridLayout"
+						  labelSpanXL="4" labelSpanL="4"
+						  labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" columnsXL="1"
+						  columnsL="1" columnsM="1" singleContainerFullSize="false">
+				<f:toolbar>
+					<Toolbar>
+						<Title level="H4" text="{i18n>assignment.details.address}"/>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://map" visible="false"
+								press=".handleOpenMapCrossAppDemands"
+								tooltip="{i18n>assignment.details.button.map.tooltip}"/>
+					</Toolbar>
+				</f:toolbar>
+				<f:content>
+					<Text text="{to_DemandItem/to_DemandHead/Street} {to_DemandItem/to_DemandHead/HouseNo}"/>
+					<Text text="{to_DemandItem/to_DemandHead/PostalCode} {to_DemandItem/to_DemandHead/City}"/>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>btn.save}"
+						type="Emphasized"
+						press=".handleBackendEvent({fn:'handleAssignmentDetailsPopoverSave', key:'doubleClickHandler'}, $event)"
+				/>
+				<Button text="{i18n>btn.cancel}"
+						press=".handleBackendEvent({fn:'handleAssignmentDetailsPopoverClose', key:'doubleClickHandler'}, $event)"
+				/>
+			</Toolbar>
+		</footer>
+	</Popover>
+</core:FragmentDefinition>
